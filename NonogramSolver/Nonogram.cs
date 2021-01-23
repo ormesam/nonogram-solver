@@ -28,10 +28,35 @@ namespace NonogramSolver {
 
         public int[,] Solve() {
             while (!IsSolved()) {
+                bool lineChanged = false;
 
+                for (int row = 0; row < rowHints.Length; row++) {
+                    bool hasChanged = SolveLine(GetRow(row), rowHints[row]);
+
+                    if (hasChanged) {
+                        lineChanged = true;
+                    }
+                }
+
+                for (int col = 0; col < columnHints.Length; col++) {
+                    bool hasChanged = SolveLine(GetColumn(col), columnHints[col]);
+
+                    if (hasChanged) {
+                        lineChanged = true;
+                    }
+                }
+
+                // If no lines have changed but it is not solved then it is unsolvable
+                if (!lineChanged) {
+                    break;
+                }
             }
 
             return map;
+        }
+
+        private bool SolveLine(int[] line, int[] hints) {
+            return false;
         }
 
         private bool IsSolved() {
