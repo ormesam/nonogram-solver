@@ -26,5 +26,37 @@
         public int[,] Solve() {
             return map;
         }
+
+        private int[] GetColumn(int colIdx) {
+            int[] column = new int[rowHints.Length];
+
+            for (int row = 0; row < column.Length; row++) {
+                column[row] = map[row, colIdx];
+            }
+
+            return column;
+        }
+
+        private int[] GetRow(int rowIdx) {
+            int[] row = new int[columnHints.Length];
+
+            for (int col = 0; col < row.Length; col++) {
+                row[col] = map[rowIdx, col];
+            }
+
+            return row;
+        }
+
+        private void ReplaceColumn(int colIdx, int[] column) {
+            for (int row = 0; row < column.Length; row++) {
+                map[row, colIdx] = column[row];
+            }
+        }
+
+        private void ReplaceRow(int rowIdx, int[] row) {
+            for (int col = 0; col < row.Length; col++) {
+                map[rowIdx, col] = row[col];
+            }
+        }
     }
 }
