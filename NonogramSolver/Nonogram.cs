@@ -1,4 +1,7 @@
-﻿namespace NonogramSolver {
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace NonogramSolver {
     public class Nonogram {
         private readonly int[][] rowHints;
         private readonly int[][] columnHints;
@@ -33,13 +36,13 @@
 
         private bool IsSolved() {
             for (int row = 0; row < rowHints.Length; row++) {
-                if (!IsValid(GetRow(row), rowHints[row])) {
+                if (!IsLineLogicallyComplete(GetRow(row), rowHints[row])) {
                     return false;
                 }
             }
 
             for (int col = 0; col < columnHints.Length; col++) {
-                if (!IsValid(GetColumn(col), columnHints[col])) {
+                if (!IsLineLogicallyComplete(GetColumn(col), columnHints[col])) {
                     return false;
                 }
             }
@@ -47,8 +50,28 @@
             return true;
         }
 
-        private bool IsValid(int[] line, int[] hints) {
-            return false;
+        private bool IsLineLogicallyComplete(int[] line, int[] hints) {
+            int currentCount = 0;
+            IList<int> segments = new List<int>();
+
+            for (int i = 0; i < line.Length; i++) {
+                if (line[i] == 1) {
+                    currentCount++;
+                } else if (currentCount > 0) {
+                    segments.Add(currentCount);
+                    currentCount = 0;
+                }
+            }
+
+            if (currentCount > 0) {
+                segments.Add(currentCount);
+            }
+
+            if (!segments.Any()) {
+                segments.Add(0);
+            }
+
+            return hints.SequenceEqual(segments);
         }
 
         private int[] GetColumn(int colIdx) {
