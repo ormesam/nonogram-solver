@@ -24,7 +24,31 @@
         }
 
         public int[,] Solve() {
+            while (!IsSolved()) {
+
+            }
+
             return map;
+        }
+
+        private bool IsSolved() {
+            for (int row = 0; row < rowHints.Length; row++) {
+                if (!IsValid(GetRow(row), rowHints[row])) {
+                    return false;
+                }
+            }
+
+            for (int col = 0; col < columnHints.Length; col++) {
+                if (!IsValid(GetColumn(col), columnHints[col])) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private bool IsValid(int[] line, int[] hints) {
+            return false;
         }
 
         private int[] GetColumn(int colIdx) {
