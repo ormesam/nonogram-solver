@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NonogramSolver", "NonogramSolver\NonogramSolver.csproj", "{5F76EC32-37A7-48F0-8B8A-6D51F0F2E849}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NonogramSolver", "NonogramSolver\NonogramSolver.csproj", "{5F76EC32-37A7-48F0-8B8A-6D51F0F2E849}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{019E1681-1139-4ED5-A834-8B5EA0F08AE6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{019E1681-1139-4ED5-A834-8B5EA0F08AE6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console", "Console\Console.csproj", "{89492000-CBC8-4427-88F7-F4BE3629BDDF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{019E1681-1139-4ED5-A834-8B5EA0F08AE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{019E1681-1139-4ED5-A834-8B5EA0F08AE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{019E1681-1139-4ED5-A834-8B5EA0F08AE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89492000-CBC8-4427-88F7-F4BE3629BDDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89492000-CBC8-4427-88F7-F4BE3629BDDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89492000-CBC8-4427-88F7-F4BE3629BDDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89492000-CBC8-4427-88F7-F4BE3629BDDF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
