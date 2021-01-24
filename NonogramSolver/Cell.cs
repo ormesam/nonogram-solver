@@ -1,7 +1,7 @@
 ﻿namespace NonogramSolver {
     public enum Cell {
-        Unknown,
-        Blank,
-        Filled,
+        Unknown = -1,
+        Blank = 0,
+        Filled = 1,
     }
 }

@@ -7,8 +7,10 @@ namespace NonogramSolver {
         private readonly int[][] rowHints;
         private readonly int[][] columnHints;
         private readonly Cell[,] map;
+        private int iteration;
 
         public Nonogram(int[][] rowHints, int[][] columnHints) {
+            this.iteration = 1;
             this.rowHints = rowHints;
             this.columnHints = columnHints;
 
@@ -35,11 +37,6 @@ namespace NonogramSolver {
 
                 for (int row = 0; row < rowHints.Length; row++) {
                     var currentRow = GetRow(row);
-
-                    if (IsLineLogicallyComplete(currentRow, rowHints[row])) {
-                        continue;
-                    }
-
                     var updatedRow = SolveLine(GetRow(row), rowHints[row]);
 
                     bool hasChanged = !currentRow.SequenceEqual(updatedRow);
@@ -53,11 +50,6 @@ namespace NonogramSolver {
 
                 for (int col = 0; col < columnHints.Length; col++) {
                     var currentColumn = GetColumn(col);
-
-                    if (IsLineLogicallyComplete(currentColumn, columnHints[col])) {
-                        continue;
-                    }
-
                     var updatedColumn = SolveLine(GetColumn(col), columnHints[col]);
 
                     bool hasChanged = !currentColumn.SequenceEqual(updatedColumn);
@@ -68,20 +60,69 @@ namespace NonogramSolver {
                         lineChanged = true;
                     }
                 }
+
+                Print();
+
+                iteration++;
             } while (!IsSolved() && lineChanged);
 
             return Convert();
         }
 
         private Cell[] SolveLine(Cell[] line, int[] hints) {
-            // TODO
+            if (IsLineFull(line)) {
+                return line;
+            }
+
+            int startIdx = 0;
+            int endIdx = 0;
+
+            while (endIdx < line.Length - 1) {
+                NextSegment(line, ref startIdx, ref endIdx);
+            }
+
+            if (IsLineLogicallyComplete(line, hints)) {
+                FillEmptyCells(line);
+            }
 
             return line;
         }
 
+        public void NextSegment(Cell[] line, ref int startIdx, ref int lastIdx) {
+            if (startIdx != 0) {
+                startIdx = lastIdx + 1;
+            }
+
+            lastIdx = line.Length - 1;
+
+            bool foundFirst = false;
+
+            for (int i = startIdx; i < line.Length; i++) {
+                if (line[i] != Cell.Blank && !foundFirst) {
+                    foundFirst = true;
+                    startIdx = i;
+                }
+
+                if (foundFirst) {
+                    if (line[i] == Cell.Blank) {
+                        lastIdx = i - 1;
+                        return;
+                    }
+                }
+            }
+        }
+
+        private void FillEmptyCells(Cell[] line) {
+            for (int i = 0; i < line.Length; i++) {
+                if (line[i] == Cell.Unknown) {
+                    line[i] = Cell.Blank;
+                }
+            }
+        }
+
         private void FillCells(Cell[] line, int startIdx, int numberOfCells, Cell value) {
             for (int i = startIdx; i < startIdx + numberOfCells; i++) {
-                if (line[i] != Cell.Unknown) {
+                if (line[i] != Cell.Unknown && line[i] != value) {
                     throw new Exception();
                 }
 
@@ -129,6 +170,10 @@ namespace NonogramSolver {
             return hints.SequenceEqual(segments);
         }
 
+        private bool IsLineFull(Cell[] line) {
+            return line.All(i => i != Cell.Unknown);
+        }
+
         private Cell[] GetColumn(int colIdx) {
             Cell[] column = new Cell[rowHints.Length];
 
@@ -161,6 +206,16 @@ namespace NonogramSolver {
             }
         }
 
+        private T[] CopyAndReverse<T>(T[] line) {
+            T[] reversedLine = new T[line.Length];
+
+            for (int i = 0; i < line.Length; i++) {
+                reversedLine[line.Length - i - 1] = line[i];
+            }
+
+            return reversedLine;
+        }
+
         private int[,] Convert() {
             var map = new int[rowHints.Length, columnHints.Length];
 
@@ -171,6 +226,33 @@ namespace NonogramSolver {
             }
 
             return map;
+        }
+
+        private void Print() {
+            Console.WriteLine("Iteration " + iteration);
+
+            for (int row = 0; row < rowHints.Length; row++) {
+                for (int col = 0; col < columnHints.Length; col++) {
+                    string character;
+
+                    switch (map[row, col]) {
+                        case Cell.Blank:
+                            character = "*";
+                            break;
+                        case Cell.Filled:
+                            character = "X";
+                            break;
+                        default:
+                            character = "-";
+                            break;
+                    }
+
+                    Console.Write(character);
+                    Console.Write(" ");
+                }
+
+                Console.WriteLine();
+            }
         }
     }
 }
