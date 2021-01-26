@@ -83,18 +83,13 @@ namespace NonogramSolver {
 
             var clone = line.ToArray();
 
-            //if (IsLineLogicallyComplete(line, hints)) {
-            //    FillEmptyCells(clone);
-            //    return clone;
-            //}
-
             // If line is empty
             if (hints.Length <= 1 && hints[0] == 0) {
                 FillEmptyCells(clone);
                 return clone;
             }
 
-            GeneratePermutations(clone, hints);
+            GeneratePermutations(line.Length, hints);
             var filteredPermutations = FilterPermutations(clone);
             Merge(clone, filteredPermutations);
 
@@ -102,48 +97,40 @@ namespace NonogramSolver {
         }
 
         private IList<Cell[]> FilterPermutations(Cell[] line) {
-            List<Cell[]> validPermutations = currentLinePermutations.ToList();
+            List<Cell[]> validPermutations = new List<Cell[]>();
 
-            for (int i = 0; i < line.Length; i++) {
-                Cell value = line[i];
+            foreach (var permutation in currentLinePermutations) {
+                bool isValid = true;
 
-                if (value == Cell.Unknown) {
-                    continue;
+                for (int i = 0; i < permutation.Length; i++) {
+                    Cell cellValue = line[i];
+                    Cell permutationValue = permutation[i];
+
+                    if (cellValue != Cell.Unknown && cellValue != permutationValue) {
+                        isValid = false;
+                        break;
+                    }
                 }
 
-                validPermutations.RemoveAll(p => p[i] != value);
+                if (isValid) {
+                    validPermutations.Add(permutation);
+                }
             }
-
-
-
-            //foreach (var permutation in currentLinePermutations) {
-            //    bool isValid = false;
-
-            //    bool isValid = permutation.All(p => p)
-
-            //    for (int i = 0; i < line.Length; i++) {
-            //        if (line[i] == Cell.Unknown) {
-            //            continue;
-            //        }
-
-            //        if (permutation[i] != line[i]) {
-            //            isValid = false;
-            //            break;
-            //        } else {
-            //            isValid = true;
-            //        }
-            //    }
-
-            //    if (isValid) {
-            //        validPermutations.Add(permutation);
-            //    }
-
-            //}
 
             return validPermutations;
         }
 
         public void GeneratePermutations(Cell[] line, int[] hints) {
+            GeneratePermutations(line.Length, hints);
+        }
+
+        public void GeneratePermutations(int length, int[] hints) {
+            Cell[] line = new Cell[length];
+
+            for (int i = 0; i < length; i++) {
+                line[i] = Cell.Unknown;
+            }
+
             GeneratePermutations(line, 0, new Queue<int>(hints));
         }
 
@@ -162,7 +149,7 @@ namespace NonogramSolver {
 
             for (int i = startIdx; i < maxStartingIndex; i++) {
                 var clone = line.ToArray();
-                FillCells(clone, i, hint);
+                FillCells(clone, i, hint, Cell.Filled);
 
                 GeneratePermutations(clone, i + hint + 1, new Queue<int>(hints));
             }
@@ -196,13 +183,13 @@ namespace NonogramSolver {
             }
         }
 
-        private void FillCells(Cell[] line, int startIdx, int numberOfCells) {
+        private void FillCells(Cell[] line, int startIdx, int numberOfCells, Cell value) {
             if (numberOfCells == 0) {
                 return;
             }
 
             for (int i = startIdx; i < startIdx + numberOfCells; i++) {
-                line[i] = Cell.Filled;
+                line[i] = value;
             }
         }
 
@@ -303,7 +290,7 @@ namespace NonogramSolver {
 
                     switch (map[row, col]) {
                         case Cell.Blank:
-                            character = "*";
+                            character = " ";
                             break;
                         case Cell.Filled:
                             character = "X";
