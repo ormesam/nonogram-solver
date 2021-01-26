@@ -65,21 +65,10 @@ namespace Tests {
 
         [TestMethod]
         public void GeneratePermutations_Singles() {
-            Cell[] line = new Cell[8] {
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-            };
-
             int[] hints = { 1 };
 
             Nonogram nonogram = new Nonogram(new int[0][], new int[0][]);
-            nonogram.GeneratePermutations(line, hints);
+            nonogram.GeneratePermutations(8, hints);
             var generatedPermutations = nonogram.CurrentLinePermutations;
 
             Assert.AreEqual(8, generatedPermutations.Count);
@@ -91,17 +80,6 @@ namespace Tests {
 
         [TestMethod]
         public void GeneratePermutations_MultipleHintFill() {
-            Cell[] line = new Cell[8] {
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-            };
-
             int[] hints = { 2, 1, 1, 1 };
 
             Cell[] permutation1 = new Cell[8] {
@@ -120,7 +98,7 @@ namespace Tests {
             };
 
             Nonogram nonogram = new Nonogram(new int[0][], new int[0][]);
-            nonogram.GeneratePermutations(line, hints);
+            nonogram.GeneratePermutations(8, hints);
             var generatedPermutations = nonogram.CurrentLinePermutations;
 
             Assert.AreEqual(1, generatedPermutations.Count);
@@ -129,17 +107,6 @@ namespace Tests {
 
         [TestMethod]
         public void GeneratePermutations_SingleHint() {
-            Cell[] line = new Cell[8] {
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-            };
-
             int[] hints = { 6 };
 
             Cell[] permutation1 = new Cell[8] {
@@ -182,7 +149,7 @@ namespace Tests {
             };
 
             Nonogram nonogram = new Nonogram(new int[0][], new int[0][]);
-            nonogram.GeneratePermutations(line, hints);
+            nonogram.GeneratePermutations(8, hints);
             var generatedPermutations = nonogram.CurrentLinePermutations;
 
             Assert.AreEqual(3, generatedPermutations.Count);
@@ -194,17 +161,6 @@ namespace Tests {
 
         [TestMethod]
         public void GeneratePermutations_DoubleHint_Fill() {
-            Cell[] line = new Cell[8] {
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-            };
-
             int[] hints = { 4, 3 };
 
             Cell[] permutation1 = new Cell[8] {
@@ -223,7 +179,7 @@ namespace Tests {
             };
 
             Nonogram nonogram = new Nonogram(new int[0][], new int[0][]);
-            nonogram.GeneratePermutations(line, hints);
+            nonogram.GeneratePermutations(8, hints);
             var generatedPermutations = nonogram.CurrentLinePermutations;
 
             Assert.AreEqual(1, generatedPermutations.Count);
@@ -232,17 +188,6 @@ namespace Tests {
 
         [TestMethod]
         public void GeneratePermutations_DoubleHint_PartialFill() {
-            Cell[] line = new Cell[8] {
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-            };
-
             int[] hints = { 3, 3 };
 
             Cell[] permutation1 = new Cell[8] {
@@ -285,7 +230,7 @@ namespace Tests {
             };
 
             Nonogram nonogram = new Nonogram(new int[0][], new int[0][]);
-            nonogram.GeneratePermutations(line, hints);
+            nonogram.GeneratePermutations(8, hints);
             var generatedPermutations = nonogram.CurrentLinePermutations;
 
             Assert.AreEqual(3, generatedPermutations.Count);
@@ -297,17 +242,6 @@ namespace Tests {
 
         [TestMethod]
         public void GeneratePermutations_DoubleHint_PartialFill2() {
-            Cell[] line = new Cell[8] {
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-            };
-
             int[] hints = { 2, 3 };
 
             Cell[] permutation1 = new Cell[8] {
@@ -386,7 +320,7 @@ namespace Tests {
             };
 
             Nonogram nonogram = new Nonogram(new int[0][], new int[0][]);
-            nonogram.GeneratePermutations(line, hints);
+            nonogram.GeneratePermutations(8, hints);
             var generatedPermutations = nonogram.CurrentLinePermutations;
 
             Assert.AreEqual(6, generatedPermutations.Count);
@@ -398,17 +332,6 @@ namespace Tests {
 
         [TestMethod]
         public void GeneratePermutations_TripleHint_PartialFill() {
-            Cell[] line = new Cell[8] {
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-            };
-
             int[] hints = { 1, 2, 2 };
 
             Cell[] permutation1 = new Cell[8] {
@@ -463,7 +386,7 @@ namespace Tests {
             };
 
             Nonogram nonogram = new Nonogram(new int[0][], new int[0][]);
-            nonogram.GeneratePermutations(line, hints);
+            nonogram.GeneratePermutations(8, hints);
             var generatedPermutations = nonogram.CurrentLinePermutations;
 
             Assert.AreEqual(4, generatedPermutations.Count);
@@ -475,21 +398,10 @@ namespace Tests {
 
         [TestMethod]
         public void GeneratePermutations_DoubleHint_LargeGap() {
-            Cell[] line = new Cell[8] {
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-            };
-
             int[] hints = { 2, 2 };
 
             Nonogram nonogram = new Nonogram(new int[0][], new int[0][]);
-            nonogram.GeneratePermutations(line, hints);
+            nonogram.GeneratePermutations(8, hints);
             var generatedPermutations = nonogram.CurrentLinePermutations;
 
             Assert.AreEqual(10, generatedPermutations.Count);

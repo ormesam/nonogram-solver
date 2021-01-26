@@ -10,7 +10,7 @@ namespace NonogramSolver {
         private int iteration;
         private IList<Cell[]> currentLinePermutations = new List<Cell[]>();
 
-        public IList<Cell[]> CurrentLinePermutations => currentLinePermutations;
+        internal IList<Cell[]> CurrentLinePermutations => currentLinePermutations;
 
         public Nonogram(int[][] rowHints, int[][] columnHints) {
             this.iteration = 1;
@@ -74,7 +74,7 @@ namespace NonogramSolver {
             return Convert();
         }
 
-        public Cell[] Solve(Cell[] line, int[] hints) {
+        internal Cell[] Solve(Cell[] line, int[] hints) {
             currentLinePermutations.Clear();
 
             if (IsLineFull(line)) {
@@ -120,11 +120,7 @@ namespace NonogramSolver {
             return validPermutations;
         }
 
-        public void GeneratePermutations(Cell[] line, int[] hints) {
-            GeneratePermutations(line.Length, hints);
-        }
-
-        public void GeneratePermutations(int length, int[] hints) {
+        internal void GeneratePermutations(int length, int[] hints) {
             Cell[] line = new Cell[length];
 
             for (int i = 0; i < length; i++) {
@@ -155,7 +151,7 @@ namespace NonogramSolver {
             }
         }
 
-        public void Merge(Cell[] line, IList<Cell[]> permutations) {
+        internal void Merge(Cell[] line, IList<Cell[]> permutations) {
             if (permutations.Count == 0) {
                 return;
             }
