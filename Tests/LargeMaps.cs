@@ -3,7 +3,7 @@ using NonogramSolver;
 
 namespace Tests {
     [TestClass]
-    public class LargeMap {
+    public class LargeMaps {
         public int[,] QuadMap => new int[15, 15] {
             { 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0 },
             { 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0 },

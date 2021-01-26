@@ -155,8 +155,8 @@ namespace NonogramSolver {
             }
         }
 
-        public void Merge(Cell[] line, IList<Cell[]> permitations) {
-            if (permitations.Count == 0) {
+        public void Merge(Cell[] line, IList<Cell[]> permutations) {
+            if (permutations.Count == 0) {
                 return;
             }
 
@@ -165,9 +165,9 @@ namespace NonogramSolver {
                     continue;
                 }
 
-                var value = permitations[0][i];
+                var value = permutations[0][i];
 
-                bool allMatch = permitations.All(p => p[i] == value);
+                bool allMatch = permutations.All(p => p[i] == value);
 
                 if (allMatch) {
                     line[i] = value;
