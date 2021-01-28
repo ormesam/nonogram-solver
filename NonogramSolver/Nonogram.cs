@@ -6,23 +6,27 @@ namespace NonogramSolver {
     public class Nonogram {
         private readonly int[][] rowHints;
         private readonly int[][] columnHints;
-        private readonly Cell[,] map;
+        private readonly CellValue[,] map;
         private readonly LineSolver lineSolver;
+        private int width;
+        private int height;
 
         public Nonogram(int[][] rowHints, int[][] columnHints) {
             this.rowHints = rowHints;
             this.columnHints = columnHints;
+            this.width = columnHints.Length;
+            this.height = rowHints.Length;
             this.lineSolver = new LineSolver();
 
-            map = GenerateEmptyMap(rowHints.Length, columnHints.Length);
+            map = GenerateEmptyMap();
         }
 
-        private Cell[,] GenerateEmptyMap(int rows, int columns) {
-            var map = new Cell[rows, columns];
+        private CellValue[,] GenerateEmptyMap() {
+            var map = new CellValue[height, width];
 
-            for (int row = 0; row < rows; row++) {
-                for (int col = 0; col < columns; col++) {
-                    map[row, col] = Cell.Unknown;
+            for (int row = 0; row < height; row++) {
+                for (int col = 0; col < width; col++) {
+                    map[row, col] = CellValue.Unknown;
                 }
             }
 
@@ -40,7 +44,7 @@ namespace NonogramSolver {
                 iteration++;
                 hasChanged = false;
 
-                for (int row = 0; row < rowHints.Length; row++) {
+                for (int row = 0; row < height; row++) {
                     var currentRow = GetRow(row);
                     var updatedRow = lineSolver.Solve(GetRow(row), rowHints[row]);
 
@@ -53,7 +57,7 @@ namespace NonogramSolver {
                     }
                 }
 
-                for (int col = 0; col < columnHints.Length; col++) {
+                for (int col = 0; col < width; col++) {
                     var currentColumn = GetColumn(col);
                     var updatedColumn = lineSolver.Solve(GetColumn(col), columnHints[col]);
 
@@ -80,13 +84,13 @@ namespace NonogramSolver {
         }
 
         private bool IsSolved() {
-            for (int row = 0; row < rowHints.Length; row++) {
+            for (int row = 0; row < height; row++) {
                 if (!lineSolver.IsLineLogicallyComplete(GetRow(row), rowHints[row])) {
                     return false;
                 }
             }
 
-            for (int col = 0; col < columnHints.Length; col++) {
+            for (int col = 0; col < width; col++) {
                 if (!lineSolver.IsLineLogicallyComplete(GetColumn(col), columnHints[col])) {
                     return false;
                 }
@@ -95,8 +99,8 @@ namespace NonogramSolver {
             return true;
         }
 
-        private Cell[] GetColumn(int colIdx) {
-            Cell[] column = new Cell[rowHints.Length];
+        private CellValue[] GetColumn(int colIdx) {
+            CellValue[] column = new CellValue[height];
 
             for (int row = 0; row < column.Length; row++) {
                 column[row] = map[row, colIdx];
@@ -105,8 +109,8 @@ namespace NonogramSolver {
             return column;
         }
 
-        private Cell[] GetRow(int rowIdx) {
-            Cell[] row = new Cell[columnHints.Length];
+        private CellValue[] GetRow(int rowIdx) {
+            CellValue[] row = new CellValue[width];
 
             for (int col = 0; col < row.Length; col++) {
                 row[col] = map[rowIdx, col];
@@ -115,24 +119,24 @@ namespace NonogramSolver {
             return row;
         }
 
-        private void ReplaceColumn(int colIdx, Cell[] column) {
+        private void ReplaceColumn(int colIdx, CellValue[] column) {
             for (int row = 0; row < column.Length; row++) {
                 map[row, colIdx] = column[row];
             }
         }
 
-        private void ReplaceRow(int rowIdx, Cell[] row) {
+        private void ReplaceRow(int rowIdx, CellValue[] row) {
             for (int col = 0; col < row.Length; col++) {
                 map[rowIdx, col] = row[col];
             }
         }
 
         private int[,] Convert() {
-            var map = new int[rowHints.Length, columnHints.Length];
+            var map = new int[height, width];
 
-            for (int row = 0; row < rowHints.Length; row++) {
-                for (int col = 0; col < columnHints.Length; col++) {
-                    map[row, col] = this.map[row, col] == Cell.Filled ? 1 : 0;
+            for (int row = 0; row < height; row++) {
+                for (int col = 0; col < width; col++) {
+                    map[row, col] = this.map[row, col] == CellValue.Filled ? 1 : 0;
                 }
             }
 
@@ -142,15 +146,15 @@ namespace NonogramSolver {
         private void Print(int iteration) {
             Console.WriteLine("Iteration " + iteration);
 
-            for (int row = 0; row < rowHints.Length; row++) {
-                for (int col = 0; col < columnHints.Length; col++) {
+            for (int row = 0; row < height; row++) {
+                for (int col = 0; col < width; col++) {
                     string character;
 
                     switch (map[row, col]) {
-                        case Cell.Blank:
+                        case CellValue.Blank:
                             character = " ";
                             break;
-                        case Cell.Filled:
+                        case CellValue.Filled:
                             character = "X";
                             break;
                         default:

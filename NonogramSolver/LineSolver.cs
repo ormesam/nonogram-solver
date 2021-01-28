@@ -2,16 +2,16 @@
 using System.Linq;
 
 namespace NonogramSolver {
-    internal class LineSolver {
-        private readonly IList<Cell[]> currentLinePermutations;
+    public class LineSolver {
+        private readonly IList<CellValue[]> currentLinePermutations;
 
-        internal IList<Cell[]> CurrentLinePermutations => currentLinePermutations;
+        internal IList<CellValue[]> CurrentLinePermutations => currentLinePermutations;
 
-        internal LineSolver() {
-            currentLinePermutations = new List<Cell[]>();
+        public LineSolver() {
+            currentLinePermutations = new List<CellValue[]>();
         }
 
-        internal Cell[] Solve(Cell[] line, int[] hints) {
+        internal CellValue[] Solve(CellValue[] line, int[] hints) {
             currentLinePermutations.Clear();
 
             if (IsLineFull(line)) {
@@ -33,17 +33,17 @@ namespace NonogramSolver {
             return clone;
         }
 
-        private IList<Cell[]> FilterPermutations(Cell[] line) {
-            List<Cell[]> validPermutations = new List<Cell[]>();
+        private IList<CellValue[]> FilterPermutations(CellValue[] line) {
+            List<CellValue[]> validPermutations = new List<CellValue[]>();
 
             foreach (var permutation in currentLinePermutations) {
                 bool isValid = true;
 
                 for (int i = 0; i < permutation.Length; i++) {
-                    Cell cellValue = line[i];
-                    Cell permutationValue = permutation[i];
+                    CellValue cellValue = line[i];
+                    CellValue permutationValue = permutation[i];
 
-                    if (cellValue != Cell.Unknown && cellValue != permutationValue) {
+                    if (cellValue != CellValue.Unknown && cellValue != permutationValue) {
                         isValid = false;
                         break;
                     }
@@ -58,16 +58,16 @@ namespace NonogramSolver {
         }
 
         internal void GeneratePermutations(int length, int[] hints) {
-            Cell[] line = new Cell[length];
+            CellValue[] line = new CellValue[length];
 
             for (int i = 0; i < length; i++) {
-                line[i] = Cell.Unknown;
+                line[i] = CellValue.Unknown;
             }
 
             GeneratePermutations(line, 0, new Queue<int>(hints));
         }
 
-        private void GeneratePermutations(Cell[] line, int startIdx, Queue<int> hints) {
+        private void GeneratePermutations(CellValue[] line, int startIdx, Queue<int> hints) {
             if (!hints.Any()) {
                 FillEmptyCells(line);
                 currentLinePermutations.Add(line.ToArray());
@@ -82,19 +82,19 @@ namespace NonogramSolver {
 
             for (int i = startIdx; i < maxStartingIndex; i++) {
                 var clone = line.ToArray();
-                FillCells(clone, i, hint, Cell.Filled);
+                FillCells(clone, i, hint, CellValue.Filled);
 
                 GeneratePermutations(clone, i + hint + 1, new Queue<int>(hints));
             }
         }
 
-        internal void Merge(Cell[] line, IList<Cell[]> permutations) {
+        internal void Merge(CellValue[] line, IList<CellValue[]> permutations) {
             if (permutations.Count == 0) {
                 return;
             }
 
             for (int i = 0; i < line.Length; i++) {
-                if (line[i] != Cell.Unknown) {
+                if (line[i] != CellValue.Unknown) {
                     continue;
                 }
 
@@ -108,15 +108,15 @@ namespace NonogramSolver {
             }
         }
 
-        private void FillEmptyCells(Cell[] line) {
+        private void FillEmptyCells(CellValue[] line) {
             for (int i = 0; i < line.Length; i++) {
-                if (line[i] == Cell.Unknown) {
-                    line[i] = Cell.Blank;
+                if (line[i] == CellValue.Unknown) {
+                    line[i] = CellValue.Blank;
                 }
             }
         }
 
-        private void FillCells(Cell[] line, int startIdx, int numberOfCells, Cell value) {
+        private void FillCells(CellValue[] line, int startIdx, int numberOfCells, CellValue value) {
             if (numberOfCells == 0) {
                 return;
             }
@@ -126,16 +126,16 @@ namespace NonogramSolver {
             }
         }
 
-        private bool IsLineFull(Cell[] line) {
-            return line.All(i => i != Cell.Unknown);
+        public bool IsLineFull(CellValue[] line) {
+            return line.All(i => i != CellValue.Unknown);
         }
 
-        internal bool IsLineLogicallyComplete(Cell[] line, int[] hints) {
+        public bool IsLineLogicallyComplete(CellValue[] line, int[] hints) {
             int currentCount = 0;
             IList<int> segments = new List<int>();
 
             for (int i = 0; i < line.Length; i++) {
-                if (line[i] == Cell.Filled) {
+                if (line[i] == CellValue.Filled) {
                     currentCount++;
                 } else if (currentCount > 0) {
                     segments.Add(currentCount);

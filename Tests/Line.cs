@@ -14,15 +14,15 @@ namespace Tests {
 
         [TestMethod]
         public void Line_Complete() {
-            Cell[] line = new Cell[8] {
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Filled,
+            CellValue[] line = new CellValue[8] {
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Filled,
             };
 
             int[] hints = { 8 };
@@ -34,68 +34,68 @@ namespace Tests {
 
         [TestMethod]
         public void Line_Fill() {
-            Cell[] line = new Cell[8] {
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
+            CellValue[] line = new CellValue[8] {
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Unknown,
             };
 
             int[] hints = { 8 };
 
             var result = lineSolver.Solve(line, hints);
 
-            Assert.IsTrue(result.All(i => i == Cell.Filled));
+            Assert.IsTrue(result.All(i => i == CellValue.Filled));
         }
 
         [TestMethod]
         public void Line_Empty() {
-            Cell[] line = new Cell[8] {
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
+            CellValue[] line = new CellValue[8] {
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Unknown,
             };
 
             int[] hints = { 0 };
 
             var result = lineSolver.Solve(line, hints);
 
-            Assert.IsTrue(result.All(i => i == Cell.Blank));
+            Assert.IsTrue(result.All(i => i == CellValue.Blank));
         }
 
         [TestMethod]
         public void Line_PartiallyKnown_Full() {
-            Cell[] line = new Cell[8] {
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
+            CellValue[] line = new CellValue[8] {
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Unknown,
             };
 
             int[] hints = { 4, 3 };
 
-            Cell[] expectedResult = new Cell[8] {
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Blank,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Filled,
+            CellValue[] expectedResult = new CellValue[8] {
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Blank,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Filled,
             };
 
             var result = lineSolver.Solve(line, hints);
@@ -105,28 +105,28 @@ namespace Tests {
 
         [TestMethod]
         public void Line_Overlapping() {
-            Cell[] line = new Cell[8] {
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
+            CellValue[] line = new CellValue[8] {
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Unknown,
             };
 
             int[] hints = { 3, 3 };
 
-            Cell[] expectedResult = new Cell[8] {
-                Cell.Unknown,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Unknown,
+            CellValue[] expectedResult = new CellValue[8] {
+                CellValue.Unknown,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Unknown,
             };
 
             var result = lineSolver.Solve(line, hints);
@@ -136,28 +136,28 @@ namespace Tests {
 
         [TestMethod]
         public void Line_PartiallyKnown() {
-            Cell[] line = new Cell[8] {
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Blank,
-                Cell.Blank,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
+            CellValue[] line = new CellValue[8] {
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Blank,
+                CellValue.Blank,
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Unknown,
             };
 
             int[] hints = { 2, 2 };
 
-            Cell[] expectedResult = new Cell[8] {
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Blank,
-                Cell.Blank,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
+            CellValue[] expectedResult = new CellValue[8] {
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Blank,
+                CellValue.Blank,
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Unknown,
             };
 
             var result = lineSolver.Solve(line, hints);
@@ -167,28 +167,28 @@ namespace Tests {
 
         [TestMethod]
         public void Line_PartiallyKnown2() {
-            Cell[] line = new Cell[8] {
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
+            CellValue[] line = new CellValue[8] {
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Unknown,
             };
 
             int[] hints = { 2, 2, 1 };
 
-            Cell[] expectedResult = new Cell[8] {
-                Cell.Unknown,
-                Cell.Filled,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Filled,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
+            CellValue[] expectedResult = new CellValue[8] {
+                CellValue.Unknown,
+                CellValue.Filled,
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Filled,
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Unknown,
             };
 
             var result = lineSolver.Solve(line, hints);
@@ -198,28 +198,28 @@ namespace Tests {
 
         [TestMethod]
         public void Line_Restricted() {
-            Cell[] line = new Cell[8] {
-                Cell.Blank,
-                Cell.Blank,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Filled,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Blank,
+            CellValue[] line = new CellValue[8] {
+                CellValue.Blank,
+                CellValue.Blank,
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Filled,
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Blank,
             };
 
             int[] hints = { 3 };
 
-            Cell[] expectedResult = new Cell[8] {
-                Cell.Blank,
-                Cell.Blank,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Filled,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Blank,
+            CellValue[] expectedResult = new CellValue[8] {
+                CellValue.Blank,
+                CellValue.Blank,
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Filled,
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Blank,
             };
 
             var result = lineSolver.Solve(line, hints);
@@ -229,28 +229,28 @@ namespace Tests {
 
         [TestMethod]
         public void Line_Restricted2() {
-            Cell[] line = new Cell[8] {
-                Cell.Blank,
-                Cell.Blank,
-                Cell.Blank,
-                Cell.Unknown,
-                Cell.Filled,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Blank,
+            CellValue[] line = new CellValue[8] {
+                CellValue.Blank,
+                CellValue.Blank,
+                CellValue.Blank,
+                CellValue.Unknown,
+                CellValue.Filled,
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Blank,
             };
 
             int[] hints = { 3 };
 
-            Cell[] expectedResult = new Cell[8] {
-                Cell.Blank,
-                Cell.Blank,
-                Cell.Blank,
-                Cell.Unknown,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Unknown,
-                Cell.Blank,
+            CellValue[] expectedResult = new CellValue[8] {
+                CellValue.Blank,
+                CellValue.Blank,
+                CellValue.Blank,
+                CellValue.Unknown,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Unknown,
+                CellValue.Blank,
             };
 
             var result = lineSolver.Solve(line, hints);
@@ -260,28 +260,28 @@ namespace Tests {
 
         [TestMethod]
         public void Line_SingleKnown() {
-            Cell[] line = new Cell[8] {
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Filled,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
+            CellValue[] line = new CellValue[8] {
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Filled,
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Unknown,
             };
 
             int[] hints = { 1 };
 
-            Cell[] expectedResult = new Cell[8] {
-                Cell.Blank,
-                Cell.Blank,
-                Cell.Blank,
-                Cell.Blank,
-                Cell.Filled,
-                Cell.Blank,
-                Cell.Blank,
-                Cell.Blank,
+            CellValue[] expectedResult = new CellValue[8] {
+                CellValue.Blank,
+                CellValue.Blank,
+                CellValue.Blank,
+                CellValue.Blank,
+                CellValue.Filled,
+                CellValue.Blank,
+                CellValue.Blank,
+                CellValue.Blank,
             };
 
             var result = lineSolver.Solve(line, hints);

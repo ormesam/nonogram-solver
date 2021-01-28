@@ -15,53 +15,53 @@ namespace Tests {
 
         [TestMethod]
         public void Merge() {
-            Cell[] permutation1 = new Cell[8] {
-                Cell.Unknown,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Unknown,
-                Cell.Unknown,
+            CellValue[] permutation1 = new CellValue[8] {
+                CellValue.Unknown,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Unknown,
+                CellValue.Unknown,
             };
 
-            Cell[] permutation2 = new Cell[8] {
-                Cell.Filled,
-                Cell.Unknown,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Unknown,
-                Cell.Filled,
+            CellValue[] permutation2 = new CellValue[8] {
+                CellValue.Filled,
+                CellValue.Unknown,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Unknown,
+                CellValue.Filled,
             };
 
-            var permutations = new List<Cell[]> {
+            var permutations = new List<CellValue[]> {
                 permutation1,
                 permutation2,
             };
 
-            Cell[] expectedResult = new Cell[8] {
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Unknown,
-                Cell.Unknown,
+            CellValue[] expectedResult = new CellValue[8] {
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Unknown,
+                CellValue.Unknown,
             };
 
-            var clone = new Cell[8] {
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
-                Cell.Unknown,
+            var clone = new CellValue[8] {
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Unknown,
+                CellValue.Unknown,
             };
 
             lineSolver.Merge(clone, permutations);
@@ -79,7 +79,7 @@ namespace Tests {
             Assert.AreEqual(8, generatedPermutations.Count);
 
             for (int i = 0; i < generatedPermutations.Count; i++) {
-                Assert.IsTrue(generatedPermutations[i][i] == Cell.Filled);
+                Assert.IsTrue(generatedPermutations[i][i] == CellValue.Filled);
             }
         }
 
@@ -87,18 +87,18 @@ namespace Tests {
         public void Permutations_MultipleHintFill() {
             int[] hints = { 2, 1, 1, 1 };
 
-            Cell[] permutation1 = new Cell[8] {
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Blank,
-                Cell.Filled,
-                Cell.Blank,
-                Cell.Filled,
-                Cell.Blank,
-                Cell.Filled,
+            CellValue[] permutation1 = new CellValue[8] {
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Blank,
+                CellValue.Filled,
+                CellValue.Blank,
+                CellValue.Filled,
+                CellValue.Blank,
+                CellValue.Filled,
             };
 
-            var permutations = new List<Cell[]> {
+            var permutations = new List<CellValue[]> {
                 permutation1,
             };
 
@@ -113,40 +113,40 @@ namespace Tests {
         public void Permutations_SingleHint() {
             int[] hints = { 6 };
 
-            Cell[] permutation1 = new Cell[8] {
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Blank,
-                Cell.Blank,
+            CellValue[] permutation1 = new CellValue[8] {
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Blank,
+                CellValue.Blank,
             };
 
-            Cell[] permutation2 = new Cell[8] {
-                Cell.Blank,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Blank,
+            CellValue[] permutation2 = new CellValue[8] {
+                CellValue.Blank,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Blank,
             };
 
-            Cell[] permutation3 = new Cell[8] {
-                Cell.Blank,
-                Cell.Blank,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Filled,
+            CellValue[] permutation3 = new CellValue[8] {
+                CellValue.Blank,
+                CellValue.Blank,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Filled,
             };
 
-            var permutations = new List<Cell[]> {
+            var permutations = new List<CellValue[]> {
                 permutation1,
                 permutation2,
                 permutation3,
@@ -166,18 +166,18 @@ namespace Tests {
         public void Permutations_DoubleHint_Fill() {
             int[] hints = { 4, 3 };
 
-            Cell[] permutation1 = new Cell[8] {
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Blank,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Filled,
+            CellValue[] permutation1 = new CellValue[8] {
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Blank,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Filled,
             };
 
-            var permutations = new List<Cell[]> {
+            var permutations = new List<CellValue[]> {
                 permutation1,
             };
 
@@ -192,40 +192,40 @@ namespace Tests {
         public void Permutations_DoubleHint_PartialFill() {
             int[] hints = { 3, 3 };
 
-            Cell[] permutation1 = new Cell[8] {
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Blank,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Blank,
+            CellValue[] permutation1 = new CellValue[8] {
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Blank,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Blank,
             };
 
-            Cell[] permutation2 = new Cell[8] {
-                Cell.Blank,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Blank,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Filled,
+            CellValue[] permutation2 = new CellValue[8] {
+                CellValue.Blank,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Blank,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Filled,
             };
 
-            Cell[] permutation3 = new Cell[8] {
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Blank,
-                Cell.Blank,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Filled,
+            CellValue[] permutation3 = new CellValue[8] {
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Blank,
+                CellValue.Blank,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Filled,
             };
 
-            var permutations = new List<Cell[]> {
+            var permutations = new List<CellValue[]> {
                 permutation1,
                 permutation2,
                 permutation3,
@@ -245,73 +245,73 @@ namespace Tests {
         public void Permutations_DoubleHint_PartialFill2() {
             int[] hints = { 2, 3 };
 
-            Cell[] permutation1 = new Cell[8] {
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Blank,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Blank,
-                Cell.Blank,
+            CellValue[] permutation1 = new CellValue[8] {
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Blank,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Blank,
+                CellValue.Blank,
             };
 
-            Cell[] permutation2 = new Cell[8] {
-                Cell.Blank,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Blank,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Blank,
+            CellValue[] permutation2 = new CellValue[8] {
+                CellValue.Blank,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Blank,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Blank,
             };
 
-            Cell[] permutation3 = new Cell[8] {
-                Cell.Blank,
-                Cell.Blank,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Blank,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Filled,
+            CellValue[] permutation3 = new CellValue[8] {
+                CellValue.Blank,
+                CellValue.Blank,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Blank,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Filled,
             };
 
-            Cell[] permutation4 = new Cell[8] {
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Blank,
-                Cell.Blank,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Blank,
+            CellValue[] permutation4 = new CellValue[8] {
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Blank,
+                CellValue.Blank,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Blank,
             };
 
-            Cell[] permutation5 = new Cell[8] {
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Blank,
-                Cell.Blank,
-                Cell.Blank,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Filled,
+            CellValue[] permutation5 = new CellValue[8] {
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Blank,
+                CellValue.Blank,
+                CellValue.Blank,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Filled,
             };
 
-            Cell[] permutation6 = new Cell[8] {
-                Cell.Blank,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Blank,
-                Cell.Blank,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Filled,
+            CellValue[] permutation6 = new CellValue[8] {
+                CellValue.Blank,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Blank,
+                CellValue.Blank,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Filled,
             };
 
-            var permutations = new List<Cell[]> {
+            var permutations = new List<CellValue[]> {
                 permutation1,
                 permutation2,
                 permutation3,
@@ -334,51 +334,51 @@ namespace Tests {
         public void Permutations_TripleHint_PartialFill() {
             int[] hints = { 1, 2, 2 };
 
-            Cell[] permutation1 = new Cell[8] {
-                Cell.Filled,
-                Cell.Blank,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Blank,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Blank,
+            CellValue[] permutation1 = new CellValue[8] {
+                CellValue.Filled,
+                CellValue.Blank,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Blank,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Blank,
             };
 
-            Cell[] permutation2 = new Cell[8] {
-                Cell.Blank,
-                Cell.Filled,
-                Cell.Blank,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Blank,
-                Cell.Filled,
-                Cell.Filled,
+            CellValue[] permutation2 = new CellValue[8] {
+                CellValue.Blank,
+                CellValue.Filled,
+                CellValue.Blank,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Blank,
+                CellValue.Filled,
+                CellValue.Filled,
             };
 
-            Cell[] permutation3 = new Cell[8] {
-                Cell.Filled,
-                Cell.Blank,
-                Cell.Blank,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Blank,
-                Cell.Filled,
-                Cell.Filled,
+            CellValue[] permutation3 = new CellValue[8] {
+                CellValue.Filled,
+                CellValue.Blank,
+                CellValue.Blank,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Blank,
+                CellValue.Filled,
+                CellValue.Filled,
             };
 
-            Cell[] permutation4 = new Cell[8] {
-                Cell.Filled,
-                Cell.Blank,
-                Cell.Filled,
-                Cell.Filled,
-                Cell.Blank,
-                Cell.Blank,
-                Cell.Filled,
-                Cell.Filled,
+            CellValue[] permutation4 = new CellValue[8] {
+                CellValue.Filled,
+                CellValue.Blank,
+                CellValue.Filled,
+                CellValue.Filled,
+                CellValue.Blank,
+                CellValue.Blank,
+                CellValue.Filled,
+                CellValue.Filled,
             };
 
-            var permutations = new List<Cell[]> {
+            var permutations = new List<CellValue[]> {
                 permutation1,
                 permutation2,
                 permutation3,
