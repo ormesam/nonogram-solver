@@ -6,7 +6,7 @@ namespace Tests {
     [TestClass]
     public class Line {
         [TestMethod]
-        public void AlreadySolved() {
+        public void Line_Complete() {
             Cell[] line = new Cell[8] {
                 Cell.Filled,
                 Cell.Filled,
@@ -27,7 +27,7 @@ namespace Tests {
         }
 
         [TestMethod]
-        public void FullLine() {
+        public void Line_Fill() {
             Cell[] line = new Cell[8] {
                 Cell.Unknown,
                 Cell.Unknown,
@@ -48,7 +48,7 @@ namespace Tests {
         }
 
         [TestMethod]
-        public void EmptyLine() {
+        public void Line_Empty() {
             Cell[] line = new Cell[8] {
                 Cell.Unknown,
                 Cell.Unknown,
@@ -69,7 +69,7 @@ namespace Tests {
         }
 
         [TestMethod]
-        public void PartiallyFullKnownLine() {
+        public void Line_PartiallyKnown_Full() {
             Cell[] line = new Cell[8] {
                 Cell.Unknown,
                 Cell.Unknown,
@@ -101,7 +101,7 @@ namespace Tests {
         }
 
         [TestMethod]
-        public void OverlappingLine() {
+        public void Line_Overlapping() {
             Cell[] line = new Cell[8] {
                 Cell.Unknown,
                 Cell.Unknown,
@@ -133,7 +133,7 @@ namespace Tests {
         }
 
         [TestMethod]
-        public void PartiallyKnownLine() {
+        public void Line_PartiallyKnown() {
             Cell[] line = new Cell[8] {
                 Cell.Unknown,
                 Cell.Unknown,
@@ -165,7 +165,7 @@ namespace Tests {
         }
 
         [TestMethod]
-        public void PartiallyKnownLine2() {
+        public void Line_PartiallyKnown2() {
             Cell[] line = new Cell[8] {
                 Cell.Unknown,
                 Cell.Unknown,
@@ -197,7 +197,7 @@ namespace Tests {
         }
 
         [TestMethod]
-        public void RestrictedLine() {
+        public void Line_Restricted() {
             Cell[] line = new Cell[8] {
                 Cell.Blank,
                 Cell.Blank,
@@ -229,7 +229,7 @@ namespace Tests {
         }
 
         [TestMethod]
-        public void RestrictedLine2() {
+        public void Line_Restricted2() {
             Cell[] line = new Cell[8] {
                 Cell.Blank,
                 Cell.Blank,
@@ -261,7 +261,7 @@ namespace Tests {
         }
 
         [TestMethod]
-        public void LineSingleKnown() {
+        public void Line_SingleKnown() {
             Cell[] line = new Cell[8] {
                 Cell.Unknown,
                 Cell.Unknown,

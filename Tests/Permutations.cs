@@ -64,7 +64,7 @@ namespace Tests {
         }
 
         [TestMethod]
-        public void GeneratePermutations_Singles() {
+        public void Permutations_Singles() {
             int[] hints = { 1 };
 
             Nonogram nonogram = new Nonogram(new int[0][], new int[0][]);
@@ -79,7 +79,7 @@ namespace Tests {
         }
 
         [TestMethod]
-        public void GeneratePermutations_MultipleHintFill() {
+        public void Permutations_MultipleHintFill() {
             int[] hints = { 2, 1, 1, 1 };
 
             Cell[] permutation1 = new Cell[8] {
@@ -106,7 +106,7 @@ namespace Tests {
         }
 
         [TestMethod]
-        public void GeneratePermutations_SingleHint() {
+        public void Permutations_SingleHint() {
             int[] hints = { 6 };
 
             Cell[] permutation1 = new Cell[8] {
@@ -160,7 +160,7 @@ namespace Tests {
         }
 
         [TestMethod]
-        public void GeneratePermutations_DoubleHint_Fill() {
+        public void Permutations_DoubleHint_Fill() {
             int[] hints = { 4, 3 };
 
             Cell[] permutation1 = new Cell[8] {
@@ -187,7 +187,7 @@ namespace Tests {
         }
 
         [TestMethod]
-        public void GeneratePermutations_DoubleHint_PartialFill() {
+        public void Permutations_DoubleHint_PartialFill() {
             int[] hints = { 3, 3 };
 
             Cell[] permutation1 = new Cell[8] {
@@ -241,7 +241,7 @@ namespace Tests {
         }
 
         [TestMethod]
-        public void GeneratePermutations_DoubleHint_PartialFill2() {
+        public void Permutations_DoubleHint_PartialFill2() {
             int[] hints = { 2, 3 };
 
             Cell[] permutation1 = new Cell[8] {
@@ -331,7 +331,7 @@ namespace Tests {
         }
 
         [TestMethod]
-        public void GeneratePermutations_TripleHint_PartialFill() {
+        public void Permutations_TripleHint_PartialFill() {
             int[] hints = { 1, 2, 2 };
 
             Cell[] permutation1 = new Cell[8] {
@@ -397,7 +397,7 @@ namespace Tests {
         }
 
         [TestMethod]
-        public void GeneratePermutations_DoubleHint_LargeGap() {
+        public void Permutations_DoubleHint_LargeGap() {
             int[] hints = { 2, 2 };
 
             Nonogram nonogram = new Nonogram(new int[0][], new int[0][]);

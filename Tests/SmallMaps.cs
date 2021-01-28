@@ -15,7 +15,7 @@ namespace Tests {
             { 0, 1, 1, 1, 1, 1, 1, 0 },
         };
 
-        public int[][] RowHints => new int[][] {
+        public int[][] BoatRowHints => new int[][] {
             new int[] { 1 },
             new int[] { 2 },
             new int[] { 3 },
@@ -26,7 +26,7 @@ namespace Tests {
             new int[] { 6 },
         };
 
-        public int[][] ColumnHints => new int[][] {
+        public int[][] BoatColumnHints => new int[][] {
             new int[] { 1, 1 },
             new int[] { 2, 2 },
             new int[] { 3, 2 },
@@ -38,13 +38,13 @@ namespace Tests {
         };
 
         [TestMethod]
-        public void SolveSmallMap() {
-            Nonogram nonogram = new Nonogram(RowHints, ColumnHints);
+        public void SmallMap_Boat() {
+            Nonogram nonogram = new Nonogram(BoatRowHints, BoatColumnHints);
 
-            var result = nonogram.Solve();
+            var result = nonogram.Solve().Result;
 
-            for (int row = 0; row < RowHints.Length; row++) {
-                for (int col = 0; col < ColumnHints.Length; col++) {
+            for (int row = 0; row < BoatRowHints.Length; row++) {
+                for (int col = 0; col < BoatColumnHints.Length; col++) {
                     Assert.IsTrue(result[row, col] == BoatMap[row, col]);
                 }
             }
@@ -84,10 +84,10 @@ namespace Tests {
         };
 
         [TestMethod]
-        public void SolveSmallCandle() {
+        public void SmallMap_Candle() {
             Nonogram nonogram = new Nonogram(CandleRowHints, CandleColumnHints);
 
-            var result = nonogram.Solve();
+            var result = nonogram.Solve().Result;
 
             for (int row = 0; row < CandleRowHints.Length; row++) {
                 for (int col = 0; col < CandleColumnHints.Length; col++) {

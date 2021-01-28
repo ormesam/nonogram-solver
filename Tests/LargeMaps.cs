@@ -62,7 +62,7 @@ namespace Tests {
         public void LargeMap_QuadBike() {
             Nonogram nonogram = new Nonogram(QuadRowHints, QuadColumnHints);
 
-            var result = nonogram.Solve();
+            var result = nonogram.Solve().Result;
 
             for (int row = 0; row < QuadRowHints.Length; row++) {
                 for (int col = 0; col < QuadColumnHints.Length; col++) {

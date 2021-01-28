@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace NonogramSolver {
@@ -7,13 +8,11 @@ namespace NonogramSolver {
         private readonly int[][] rowHints;
         private readonly int[][] columnHints;
         private readonly Cell[,] map;
-        private int iteration;
         private IList<Cell[]> currentLinePermutations = new List<Cell[]>();
 
         internal IList<Cell[]> CurrentLinePermutations => currentLinePermutations;
 
         public Nonogram(int[][] rowHints, int[][] columnHints) {
-            this.iteration = 1;
             this.rowHints = rowHints;
             this.columnHints = columnHints;
 
@@ -32,10 +31,15 @@ namespace NonogramSolver {
             return map;
         }
 
-        public int[,] Solve() {
+        public NonogramSolveResult Solve() {
             bool hasChanged = true;
+            int iteration = 0;
+
+            Stopwatch stopWatch = new Stopwatch();
+            stopWatch.Start();
 
             while (hasChanged) {
+                iteration++;
                 hasChanged = false;
 
                 for (int row = 0; row < rowHints.Length; row++) {
@@ -64,14 +68,17 @@ namespace NonogramSolver {
                     }
                 }
 
-                Print();
-
-                iteration++;
+                Print(iteration);
             }
 
-            bool isSolved = IsSolved();
+            stopWatch.Stop();
 
-            return Convert();
+            return new NonogramSolveResult {
+                CouldBeSolved = IsSolved(),
+                Result = Convert(),
+                Iterations = iteration,
+                TimeTaken = stopWatch.Elapsed,
+            };
         }
 
         internal Cell[] Solve(Cell[] line, int[] hints) {
@@ -277,7 +284,7 @@ namespace NonogramSolver {
             return map;
         }
 
-        private void Print() {
+        private void Print(int iteration) {
             Console.WriteLine("Iteration " + iteration);
 
             for (int row = 0; row < rowHints.Length; row++) {
