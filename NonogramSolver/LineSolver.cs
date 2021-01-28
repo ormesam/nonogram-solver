@@ -2,12 +2,12 @@
 using System.Linq;
 
 namespace NonogramSolver {
-    public class LineSolver {
-        private IList<Cell[]> currentLinePermutations;
+    internal class LineSolver {
+        private readonly IList<Cell[]> currentLinePermutations;
 
         internal IList<Cell[]> CurrentLinePermutations => currentLinePermutations;
 
-        public LineSolver() {
+        internal LineSolver() {
             currentLinePermutations = new List<Cell[]>();
         }
 
