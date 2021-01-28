@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
@@ -8,13 +7,12 @@ namespace NonogramSolver {
         private readonly int[][] rowHints;
         private readonly int[][] columnHints;
         private readonly Cell[,] map;
-        private IList<Cell[]> currentLinePermutations = new List<Cell[]>();
-
-        internal IList<Cell[]> CurrentLinePermutations => currentLinePermutations;
+        private readonly LineSolver lineSolver;
 
         public Nonogram(int[][] rowHints, int[][] columnHints) {
             this.rowHints = rowHints;
             this.columnHints = columnHints;
+            this.lineSolver = new LineSolver();
 
             map = GenerateEmptyMap(rowHints.Length, columnHints.Length);
         }
@@ -44,7 +42,7 @@ namespace NonogramSolver {
 
                 for (int row = 0; row < rowHints.Length; row++) {
                     var currentRow = GetRow(row);
-                    var updatedRow = Solve(GetRow(row), rowHints[row]);
+                    var updatedRow = lineSolver.Solve(GetRow(row), rowHints[row]);
 
                     bool hasLineChanged = !currentRow.SequenceEqual(updatedRow);
 
@@ -57,7 +55,7 @@ namespace NonogramSolver {
 
                 for (int col = 0; col < columnHints.Length; col++) {
                     var currentColumn = GetColumn(col);
-                    var updatedColumn = Solve(GetColumn(col), columnHints[col]);
+                    var updatedColumn = lineSolver.Solve(GetColumn(col), columnHints[col]);
 
                     bool hasLineChanged = !currentColumn.SequenceEqual(updatedColumn);
 
@@ -81,163 +79,20 @@ namespace NonogramSolver {
             };
         }
 
-        internal Cell[] Solve(Cell[] line, int[] hints) {
-            currentLinePermutations.Clear();
-
-            if (IsLineFull(line)) {
-                return line;
-            }
-
-            var clone = line.ToArray();
-
-            // If line is empty
-            if (hints.Length <= 1 && hints[0] == 0) {
-                FillEmptyCells(clone);
-                return clone;
-            }
-
-            GeneratePermutations(line.Length, hints);
-            var filteredPermutations = FilterPermutations(clone);
-            Merge(clone, filteredPermutations);
-
-            return clone;
-        }
-
-        private IList<Cell[]> FilterPermutations(Cell[] line) {
-            List<Cell[]> validPermutations = new List<Cell[]>();
-
-            foreach (var permutation in currentLinePermutations) {
-                bool isValid = true;
-
-                for (int i = 0; i < permutation.Length; i++) {
-                    Cell cellValue = line[i];
-                    Cell permutationValue = permutation[i];
-
-                    if (cellValue != Cell.Unknown && cellValue != permutationValue) {
-                        isValid = false;
-                        break;
-                    }
-                }
-
-                if (isValid) {
-                    validPermutations.Add(permutation);
-                }
-            }
-
-            return validPermutations;
-        }
-
-        internal void GeneratePermutations(int length, int[] hints) {
-            Cell[] line = new Cell[length];
-
-            for (int i = 0; i < length; i++) {
-                line[i] = Cell.Unknown;
-            }
-
-            GeneratePermutations(line, 0, new Queue<int>(hints));
-        }
-
-        private void GeneratePermutations(Cell[] line, int startIdx, Queue<int> hints) {
-            if (!hints.Any()) {
-                FillEmptyCells(line);
-                currentLinePermutations.Add(line.ToArray());
-
-                return;
-            }
-
-            var hint = hints.Dequeue();
-
-            // This maximum index this hint can be and still fit the others on
-            int maxStartingIndex = line.Length - hints.Sum() - hints.Count - hint + 1;
-
-            for (int i = startIdx; i < maxStartingIndex; i++) {
-                var clone = line.ToArray();
-                FillCells(clone, i, hint, Cell.Filled);
-
-                GeneratePermutations(clone, i + hint + 1, new Queue<int>(hints));
-            }
-        }
-
-        internal void Merge(Cell[] line, IList<Cell[]> permutations) {
-            if (permutations.Count == 0) {
-                return;
-            }
-
-            for (int i = 0; i < line.Length; i++) {
-                if (line[i] != Cell.Unknown) {
-                    continue;
-                }
-
-                var value = permutations[0][i];
-
-                bool allMatch = permutations.All(p => p[i] == value);
-
-                if (allMatch) {
-                    line[i] = value;
-                }
-            }
-        }
-
-        private void FillEmptyCells(Cell[] line) {
-            for (int i = 0; i < line.Length; i++) {
-                if (line[i] == Cell.Unknown) {
-                    line[i] = Cell.Blank;
-                }
-            }
-        }
-
-        private void FillCells(Cell[] line, int startIdx, int numberOfCells, Cell value) {
-            if (numberOfCells == 0) {
-                return;
-            }
-
-            for (int i = startIdx; i < startIdx + numberOfCells; i++) {
-                line[i] = value;
-            }
-        }
-
         private bool IsSolved() {
             for (int row = 0; row < rowHints.Length; row++) {
-                if (!IsLineLogicallyComplete(GetRow(row), rowHints[row])) {
+                if (!lineSolver.IsLineLogicallyComplete(GetRow(row), rowHints[row])) {
                     return false;
                 }
             }
 
             for (int col = 0; col < columnHints.Length; col++) {
-                if (!IsLineLogicallyComplete(GetColumn(col), columnHints[col])) {
+                if (!lineSolver.IsLineLogicallyComplete(GetColumn(col), columnHints[col])) {
                     return false;
                 }
             }
 
             return true;
-        }
-
-        private bool IsLineLogicallyComplete(Cell[] line, int[] hints) {
-            int currentCount = 0;
-            IList<int> segments = new List<int>();
-
-            for (int i = 0; i < line.Length; i++) {
-                if (line[i] == Cell.Filled) {
-                    currentCount++;
-                } else if (currentCount > 0) {
-                    segments.Add(currentCount);
-                    currentCount = 0;
-                }
-            }
-
-            if (currentCount > 0) {
-                segments.Add(currentCount);
-            }
-
-            if (!segments.Any()) {
-                segments.Add(0);
-            }
-
-            return hints.SequenceEqual(segments);
-        }
-
-        private bool IsLineFull(Cell[] line) {
-            return line.All(i => i != Cell.Unknown);
         }
 
         private Cell[] GetColumn(int colIdx) {

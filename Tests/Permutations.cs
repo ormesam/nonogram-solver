@@ -6,6 +6,13 @@ using NonogramSolver;
 namespace Tests {
     [TestClass]
     public class Permutations {
+        private LineSolver lineSolver;
+
+        [TestInitialize]
+        public void Initialize() {
+            lineSolver = new LineSolver();
+        }
+
         [TestMethod]
         public void Merge() {
             Cell[] permutation1 = new Cell[8] {
@@ -57,8 +64,7 @@ namespace Tests {
                 Cell.Unknown,
             };
 
-            Nonogram nonogram = new Nonogram(new int[0][], new int[0][]);
-            nonogram.Merge(clone, permutations);
+            lineSolver.Merge(clone, permutations);
 
             Assert.IsTrue(expectedResult.SequenceEqual(clone));
         }
@@ -67,9 +73,8 @@ namespace Tests {
         public void Permutations_Singles() {
             int[] hints = { 1 };
 
-            Nonogram nonogram = new Nonogram(new int[0][], new int[0][]);
-            nonogram.GeneratePermutations(8, hints);
-            var generatedPermutations = nonogram.CurrentLinePermutations;
+            lineSolver.GeneratePermutations(8, hints);
+            var generatedPermutations = lineSolver.CurrentLinePermutations;
 
             Assert.AreEqual(8, generatedPermutations.Count);
 
@@ -97,9 +102,8 @@ namespace Tests {
                 permutation1,
             };
 
-            Nonogram nonogram = new Nonogram(new int[0][], new int[0][]);
-            nonogram.GeneratePermutations(8, hints);
-            var generatedPermutations = nonogram.CurrentLinePermutations;
+            lineSolver.GeneratePermutations(8, hints);
+            var generatedPermutations = lineSolver.CurrentLinePermutations;
 
             Assert.AreEqual(1, generatedPermutations.Count);
             Assert.IsTrue(permutations[0].SequenceEqual(generatedPermutations[0]));
@@ -148,9 +152,8 @@ namespace Tests {
                 permutation3,
             };
 
-            Nonogram nonogram = new Nonogram(new int[0][], new int[0][]);
-            nonogram.GeneratePermutations(8, hints);
-            var generatedPermutations = nonogram.CurrentLinePermutations;
+            lineSolver.GeneratePermutations(8, hints);
+            var generatedPermutations = lineSolver.CurrentLinePermutations;
 
             Assert.AreEqual(3, generatedPermutations.Count);
 
@@ -178,9 +181,8 @@ namespace Tests {
                 permutation1,
             };
 
-            Nonogram nonogram = new Nonogram(new int[0][], new int[0][]);
-            nonogram.GeneratePermutations(8, hints);
-            var generatedPermutations = nonogram.CurrentLinePermutations;
+            lineSolver.GeneratePermutations(8, hints);
+            var generatedPermutations = lineSolver.CurrentLinePermutations;
 
             Assert.AreEqual(1, generatedPermutations.Count);
             Assert.IsTrue(permutations[0].SequenceEqual(generatedPermutations[0]));
@@ -229,9 +231,8 @@ namespace Tests {
                 permutation3,
             };
 
-            Nonogram nonogram = new Nonogram(new int[0][], new int[0][]);
-            nonogram.GeneratePermutations(8, hints);
-            var generatedPermutations = nonogram.CurrentLinePermutations;
+            lineSolver.GeneratePermutations(8, hints);
+            var generatedPermutations = lineSolver.CurrentLinePermutations;
 
             Assert.AreEqual(3, generatedPermutations.Count);
 
@@ -319,9 +320,8 @@ namespace Tests {
                 permutation6,
             };
 
-            Nonogram nonogram = new Nonogram(new int[0][], new int[0][]);
-            nonogram.GeneratePermutations(8, hints);
-            var generatedPermutations = nonogram.CurrentLinePermutations;
+            lineSolver.GeneratePermutations(8, hints);
+            var generatedPermutations = lineSolver.CurrentLinePermutations;
 
             Assert.AreEqual(6, generatedPermutations.Count);
 
@@ -385,9 +385,8 @@ namespace Tests {
                 permutation4,
             };
 
-            Nonogram nonogram = new Nonogram(new int[0][], new int[0][]);
-            nonogram.GeneratePermutations(8, hints);
-            var generatedPermutations = nonogram.CurrentLinePermutations;
+            lineSolver.GeneratePermutations(8, hints);
+            var generatedPermutations = lineSolver.CurrentLinePermutations;
 
             Assert.AreEqual(4, generatedPermutations.Count);
 
@@ -400,9 +399,8 @@ namespace Tests {
         public void Permutations_DoubleHint_LargeGap() {
             int[] hints = { 2, 2 };
 
-            Nonogram nonogram = new Nonogram(new int[0][], new int[0][]);
-            nonogram.GeneratePermutations(8, hints);
-            var generatedPermutations = nonogram.CurrentLinePermutations;
+            lineSolver.GeneratePermutations(8, hints);
+            var generatedPermutations = lineSolver.CurrentLinePermutations;
 
             Assert.AreEqual(10, generatedPermutations.Count);
         }

@@ -5,6 +5,13 @@ using NonogramSolver;
 namespace Tests {
     [TestClass]
     public class Line {
+        private LineSolver lineSolver;
+
+        [TestInitialize]
+        public void Initialize() {
+            lineSolver = new LineSolver();
+        }
+
         [TestMethod]
         public void Line_Complete() {
             Cell[] line = new Cell[8] {
@@ -20,8 +27,7 @@ namespace Tests {
 
             int[] hints = { 8 };
 
-            Nonogram nonogram = new Nonogram(new int[0][], new int[0][]);
-            var result = nonogram.Solve(line, hints);
+            var result = lineSolver.Solve(line, hints);
 
             Assert.IsTrue(line.SequenceEqual(result));
         }
@@ -41,8 +47,7 @@ namespace Tests {
 
             int[] hints = { 8 };
 
-            Nonogram nonogram = new Nonogram(new int[0][], new int[0][]);
-            var result = nonogram.Solve(line, hints);
+            var result = lineSolver.Solve(line, hints);
 
             Assert.IsTrue(result.All(i => i == Cell.Filled));
         }
@@ -62,8 +67,7 @@ namespace Tests {
 
             int[] hints = { 0 };
 
-            Nonogram nonogram = new Nonogram(new int[0][], new int[0][]);
-            var result = nonogram.Solve(line, hints);
+            var result = lineSolver.Solve(line, hints);
 
             Assert.IsTrue(result.All(i => i == Cell.Blank));
         }
@@ -94,8 +98,7 @@ namespace Tests {
                 Cell.Filled,
             };
 
-            Nonogram nonogram = new Nonogram(new int[0][], new int[0][]);
-            var result = nonogram.Solve(line, hints);
+            var result = lineSolver.Solve(line, hints);
 
             Assert.IsTrue(expectedResult.SequenceEqual(result));
         }
@@ -126,8 +129,7 @@ namespace Tests {
                 Cell.Unknown,
             };
 
-            Nonogram nonogram = new Nonogram(new int[0][], new int[0][]);
-            var result = nonogram.Solve(line, hints);
+            var result = lineSolver.Solve(line, hints);
 
             Assert.IsTrue(expectedResult.SequenceEqual(result));
         }
@@ -158,8 +160,7 @@ namespace Tests {
                 Cell.Unknown,
             };
 
-            Nonogram nonogram = new Nonogram(new int[0][], new int[0][]);
-            var result = nonogram.Solve(line, hints);
+            var result = lineSolver.Solve(line, hints);
 
             Assert.IsTrue(expectedResult.SequenceEqual(result));
         }
@@ -190,8 +191,7 @@ namespace Tests {
                 Cell.Unknown,
             };
 
-            Nonogram nonogram = new Nonogram(new int[0][], new int[0][]);
-            var result = nonogram.Solve(line, hints);
+            var result = lineSolver.Solve(line, hints);
 
             Assert.IsTrue(expectedResult.SequenceEqual(result));
         }
@@ -222,8 +222,7 @@ namespace Tests {
                 Cell.Blank,
             };
 
-            Nonogram nonogram = new Nonogram(new int[0][], new int[0][]);
-            var result = nonogram.Solve(line, hints);
+            var result = lineSolver.Solve(line, hints);
 
             Assert.IsTrue(expectedResult.SequenceEqual(result));
         }
@@ -254,8 +253,7 @@ namespace Tests {
                 Cell.Blank,
             };
 
-            Nonogram nonogram = new Nonogram(new int[0][], new int[0][]);
-            var result = nonogram.Solve(line, hints);
+            var result = lineSolver.Solve(line, hints);
 
             Assert.IsTrue(expectedResult.SequenceEqual(result));
         }
@@ -286,8 +284,7 @@ namespace Tests {
                 Cell.Blank,
             };
 
-            Nonogram nonogram = new Nonogram(new int[0][], new int[0][]);
-            var result = nonogram.Solve(line, hints);
+            var result = lineSolver.Solve(line, hints);
 
             Assert.IsTrue(expectedResult.SequenceEqual(result));
         }
