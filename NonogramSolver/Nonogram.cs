@@ -72,7 +72,7 @@ namespace NonogramSolver {
             stopWatch.Stop();
 
             return new NonogramSolveResult {
-                CouldBeSolved = IsSolved(),
+                IsSolved = IsSolved(),
                 Result = Convert(),
                 Iterations = iteration,
                 TimeTaken = stopWatch.Elapsed,
