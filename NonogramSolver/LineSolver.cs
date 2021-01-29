@@ -126,32 +126,36 @@ namespace NonogramSolver {
             }
         }
 
-        public bool IsLineFull(CellValue[] line) {
+        public static bool IsLineFull(CellValue[] line) {
             return line.All(i => i != CellValue.Unknown);
         }
 
-        public bool IsLineLogicallyComplete(CellValue[] line, int[] hints) {
+        public static int[] CreateLineHints(CellValue[] line) {
             int currentCount = 0;
-            IList<int> segments = new List<int>();
+            IList<int> hints = new List<int>();
 
             for (int i = 0; i < line.Length; i++) {
                 if (line[i] == CellValue.Filled) {
                     currentCount++;
                 } else if (currentCount > 0) {
-                    segments.Add(currentCount);
+                    hints.Add(currentCount);
                     currentCount = 0;
                 }
             }
 
             if (currentCount > 0) {
-                segments.Add(currentCount);
+                hints.Add(currentCount);
             }
 
-            if (!segments.Any()) {
-                segments.Add(0);
+            if (!hints.Any()) {
+                hints.Add(0);
             }
 
-            return hints.SequenceEqual(segments);
+            return hints.ToArray();
+        }
+
+        public static bool IsLineLogicallyComplete(CellValue[] line, int[] hints) {
+            return CreateLineHints(line).SequenceEqual(hints);
         }
     }
 }

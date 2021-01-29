@@ -85,13 +85,13 @@ namespace NonogramSolver {
 
         private bool IsSolved() {
             for (int row = 0; row < height; row++) {
-                if (!lineSolver.IsLineLogicallyComplete(GetRow(row), rowHints[row])) {
+                if (!LineSolver.IsLineLogicallyComplete(GetRow(row), rowHints[row])) {
                     return false;
                 }
             }
 
             for (int col = 0; col < width; col++) {
-                if (!lineSolver.IsLineLogicallyComplete(GetColumn(col), columnHints[col])) {
+                if (!LineSolver.IsLineLogicallyComplete(GetColumn(col), columnHints[col])) {
                     return false;
                 }
             }
