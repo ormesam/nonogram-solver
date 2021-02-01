@@ -40,7 +40,7 @@ namespace Console {
         };
 
         static void Main(string[] args) {
-            Nonogram nonogram = new Nonogram(RowHints, ColumnHints);
+            Nonogram nonogram = new Nonogram(RowHints, ColumnHints, new ConsoleLogger());
             nonogram.Solve();
         }
     }

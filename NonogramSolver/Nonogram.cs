@@ -6,14 +6,16 @@ namespace NonogramSolver {
     public class Nonogram {
         private readonly int[][] rowHints;
         private readonly int[][] columnHints;
+        private readonly ILogger logger;
         private readonly CellValue[,] map;
         private readonly LineSolver lineSolver;
-        private int width;
-        private int height;
+        private readonly int width;
+        private readonly int height;
 
-        public Nonogram(int[][] rowHints, int[][] columnHints) {
+        public Nonogram(int[][] rowHints, int[][] columnHints, ILogger logger = null) {
             this.rowHints = rowHints;
             this.columnHints = columnHints;
+            this.logger = logger;
             this.width = columnHints.Length;
             this.height = rowHints.Length;
             this.lineSolver = new LineSolver();
@@ -55,6 +57,8 @@ namespace NonogramSolver {
 
                         hasChanged = true;
                     }
+
+                    logger?.LineSolved(row, true, updatedRow);
                 }
 
                 for (int col = 0; col < width; col++) {
@@ -68,9 +72,9 @@ namespace NonogramSolver {
 
                         hasChanged = true;
                     }
-                }
 
-                Print(iteration);
+                    logger?.LineSolved(col, false, updatedColumn);
+                }
             }
 
             stopWatch.Stop();
@@ -141,35 +145,6 @@ namespace NonogramSolver {
             }
 
             return map;
-        }
-
-        private void Print(int iteration) {
-            Console.WriteLine("Iteration " + iteration);
-
-            for (int row = 0; row < height; row++) {
-                for (int col = 0; col < width; col++) {
-                    string character;
-
-                    switch (map[row, col]) {
-                        case CellValue.Blank:
-                            character = " ";
-                            break;
-                        case CellValue.Filled:
-                            character = "X";
-                            break;
-                        default:
-                            character = "-";
-                            break;
-                    }
-
-                    Console.Write(character);
-                    Console.Write(" ");
-                }
-
-                Console.WriteLine();
-            }
-
-            Console.WriteLine();
         }
     }
 }
